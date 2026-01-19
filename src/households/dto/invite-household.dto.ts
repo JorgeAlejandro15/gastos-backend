@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsPhoneNumber } from 'class-validator';
+import { IsEmail, IsOptional, IsString, Matches } from 'class-validator';
 
 export class InviteHouseholdDto {
   @ApiProperty({
@@ -18,6 +18,9 @@ export class InviteHouseholdDto {
     required: false,
   })
   @IsOptional()
-  @IsPhoneNumber()
+  @IsString()
+  @Matches(/^(\+[1-9]\d{7,14}|\d{6,15})$/, {
+    message: 'El teléfono debe ser un número válido.',
+  })
   phone?: string;
 }

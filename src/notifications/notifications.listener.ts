@@ -14,16 +14,37 @@ export class NotificationsListener {
 
   @OnEvent(HouseholdEvents.LIST_ITEM_ADDED)
   async onListItemAdded(payload: HouseholdListEventPayload) {
-    await this.notifications.notifyHouseholdListEvent(payload);
+    try {
+      await this.notifications.notifyHouseholdListEvent(payload);
+    } catch (err) {
+      console.error(
+        '[NotificationsListener] Error en notifyHouseholdListEvent (LIST_ITEM_ADDED):',
+        err,
+      );
+    }
   }
 
   @OnEvent(HouseholdEvents.LIST_ITEM_COMPLETED)
   async onListItemCompleted(payload: HouseholdListEventPayload) {
-    await this.notifications.notifyHouseholdListEvent(payload);
+    try {
+      await this.notifications.notifyHouseholdListEvent(payload);
+    } catch (err) {
+      console.error(
+        '[NotificationsListener] Error en notifyHouseholdListEvent (LIST_ITEM_COMPLETED):',
+        err,
+      );
+    }
   }
 
   @OnEvent(HouseholdEvents.LIST_ITEM_DELETED)
   async onListItemDeleted(payload: HouseholdListEventPayload) {
-    await this.notifications.notifyHouseholdListEvent(payload);
+    try {
+      await this.notifications.notifyHouseholdListEvent(payload);
+    } catch (err) {
+      console.error(
+        '[NotificationsListener] Error en notifyHouseholdListEvent (LIST_ITEM_DELETED):',
+        err,
+      );
+    }
   }
 }

@@ -335,6 +335,7 @@ export class HouseholdsService {
   async searchUserForInvite(
     ownerUserId: string,
     identifier: string,
+    opts?: { householdId?: string },
   ): Promise<{
     exists: boolean;
     isAlreadyMember: boolean;
@@ -342,9 +343,27 @@ export class HouseholdsService {
     displayName?: string;
     method: 'email' | 'phone';
   }> {
-    const household = await this.getHouseholdForUser(ownerUserId);
-    if (!household) {
-      throw new NotFoundException('Hogar no encontrado');
+    let household: HouseholdEntity | null = null;
+
+    if (opts?.householdId) {
+      household = await this.householdsRepo.findOne({
+        where: { id: opts.householdId },
+      });
+      if (!household) {
+        throw new NotFoundException('Hogar no encontrado');
+      }
+
+      // Must be at least a member to check membership; if you want stricter rules,
+      // change this to assertOwnerOfHousehold.
+      const isMember = await this.isUserInHousehold(household.id, ownerUserId);
+      if (!isMember) {
+        throw new ForbiddenException('No eres miembro de este hogar');
+      }
+    } else {
+      household = await this.getHouseholdForUser(ownerUserId);
+      if (!household) {
+        throw new NotFoundException('Hogar no encontrado');
+      }
     }
 
     // Detect if identifier is email or phone

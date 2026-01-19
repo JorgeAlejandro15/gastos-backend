@@ -82,16 +82,21 @@ export class NotificationsController {
     const itemName =
       typeof itemNameValue === 'string' ? itemNameValue : undefined;
 
-    await this.notifications.notifyHouseholdListEvent({
+    // Para QA/dev: por defecto NO excluimos al usuario actual.
+    // La columna userId es UUID, así que necesitamos un UUID válido si queremos "no excluir a nadie".
+    // Usamos NIL UUID.
+    const excludeUserId =
+      dto.excludeUserId ?? '00000000-0000-0000-0000-000000000000';
+
+    const result = await this.notifications.notifyHouseholdListEvent({
       actionType,
       householdId: dto.householdId,
       listId,
       userId: user.userId,
       userName,
       itemName,
-      excludeUserId: 'x',
+      excludeUserId,
     });
-
-    return { ok: true };
+    return { ok: true, result };
   }
 }

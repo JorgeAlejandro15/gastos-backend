@@ -68,7 +68,12 @@ export class HouseholdsController {
     summary: 'Buscar usuario por email o teléfono antes de invitar',
   })
   searchUser(@CurrentUser() user: CurrentUser, @Body() dto: SearchUserDto) {
-    return this.households.searchUserForInvite(user.userId, dto.identifier);
+    const householdId =
+      (dto as unknown as { householdId?: string }).householdId ?? undefined;
+
+    return this.households.searchUserForInvite(user.userId, dto.identifier, {
+      householdId,
+    });
   }
 
   @Post('invitations/accept')
