@@ -76,6 +76,20 @@ class EnvironmentVariables {
   @IsOptional()
   @IsString()
   LOG_LEVEL?: string;
+
+  /**
+   * Firebase Admin (opcional): si se configura, el backend podrá enviar notificaciones
+   * directamente a tokens FCM (sin pasar por el servicio de Expo).
+   *
+   * Recomendado: usar FIREBASE_SERVICE_ACCOUNT_BASE64 para evitar problemas de saltos de línea.
+   */
+  @IsOptional()
+  @IsString()
+  FIREBASE_SERVICE_ACCOUNT_JSON?: string;
+
+  @IsOptional()
+  @IsString()
+  FIREBASE_SERVICE_ACCOUNT_BASE64?: string;
 }
 
 export function validateEnv(config: Record<string, unknown>) {
