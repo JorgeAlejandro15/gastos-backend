@@ -51,10 +51,10 @@ class EnvironmentVariables {
   JWT_SECRET!: string;
 
   @IsString()
-  JWT_EXPIRES_IN = '15m';
+  JWT_EXPIRES_IN = '2m';
 
   @IsString()
-  JWT_REFRESH_EXPIRES_IN = '30m';
+  JWT_REFRESH_EXPIRES_IN = '5m';
 
   @Type(() => Number)
   @IsInt()
