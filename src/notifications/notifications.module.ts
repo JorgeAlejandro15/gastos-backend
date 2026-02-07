@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HouseholdMemberEntity } from '../households/household-member.entity';
 import { HouseholdsModule } from '../households/households.module';
 import { UserEntity } from '../users/user.entity';
+import { FirebaseAdminService } from './firebase-admin.service';
 import { NotificationsController } from './notifications.controller';
 import { NotificationsListener } from './notifications.listener';
 import { NotificationsService } from './notifications.service';
@@ -20,7 +21,11 @@ import { PushTokenEntity } from './push-token.entity';
     HouseholdsModule,
   ],
   controllers: [NotificationsController],
-  providers: [NotificationsService, NotificationsListener],
+  providers: [
+    NotificationsService,
+    NotificationsListener,
+    FirebaseAdminService,
+  ],
   exports: [NotificationsService],
 })
 export class NotificationsModule {}

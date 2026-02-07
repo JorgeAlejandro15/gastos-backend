@@ -376,7 +376,6 @@ export class ListsService {
         excludeUserId: user.id,
       });
     }
-
     return saved;
   }
 
@@ -446,7 +445,6 @@ export class ListsService {
         excludeUserId: user.id,
       });
     }
-
     return { ok: true };
   }
 
@@ -516,7 +514,6 @@ export class ListsService {
             excludeUserId: user.id,
           });
         }
-
         return item;
       }
 

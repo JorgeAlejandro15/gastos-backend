@@ -22,6 +22,14 @@ export class PushTokenEntity {
   @Column({ type: 'varchar', length: 255 })
   token!: string;
 
+  /**
+   * Identifica el proveedor del token.
+   * - expo: ExpoPushToken (se envía con expo-server-sdk)
+   * - fcm: token nativo de FCM (se envía con firebase-admin)
+   */
+  @Column({ type: 'varchar', length: 10, default: 'expo' })
+  tokenType!: 'expo' | 'fcm';
+
   @Column({ type: 'varchar', length: 20 })
   deviceType!: 'ios' | 'android' | 'web';
 

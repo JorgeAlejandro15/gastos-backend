@@ -14,6 +14,11 @@ export class RegisterPushTokenDto {
   @MaxLength(255)
   token!: string;
 
+  @IsOptional()
+  @IsString()
+  @IsIn(['expo', 'fcm'])
+  tokenType?: 'expo' | 'fcm';
+
   @IsString()
   @IsIn(['ios', 'android', 'web'])
   deviceType!: 'ios' | 'android' | 'web';
