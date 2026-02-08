@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class AddPhoneToInvitations1735995600000 implements MigrationInterface {
-  name = 'AddPhoneToInvitations1735995600000';
+export class AddPhoneToInvitations1766600000000 implements MigrationInterface {
+  name = 'AddPhoneToInvitations1766600000000';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     // Add phone_lookup_hash column (nullable to allow existing invitations)
