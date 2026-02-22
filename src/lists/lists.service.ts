@@ -305,6 +305,13 @@ export class ListsService {
 
     const total = await baseQb.clone().getCount();
 
+    // Sum of amount * price for all matching history items.
+    const rawSum = await baseQb
+      .clone()
+      .select('COALESCE(SUM(item.amount * item.price), 0)', 'totalAmount')
+      .getRawOne<{ totalAmount: string }>();
+    const totalAmount = Number.parseFloat(rawSum?.totalAmount ?? '0') || 0;
+
     if (decoded) {
       baseQb.andWhere(
         '(item.purchasedAt < :cursorAt OR (item.purchasedAt = :cursorAt AND item.id < :cursorId))',
@@ -330,7 +337,7 @@ export class ListsService {
           })
         : null;
 
-    return { items, nextCursor, total };
+    return { items, nextCursor, total, totalAmount };
   }
 
   async updateList(userId: string, listId: string, input: { name?: string }) {
